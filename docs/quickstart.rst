@@ -215,11 +215,14 @@ of the argument like ``<converter:variable_name>``. ::
         # show the post with the given id, the id is a positive integer
         return f'Post {post_id}'
 
-    @app.route('/shops_near/latitude/<float(signed=True):latitude>/longitude/<float(signed=True):longitude>/within_km<float:radius_km>')
-    def nearby_shops(latitude, longitude, radius_km):
-        # show the chhese shops within radius of the location given by latitude, longitude
-        #  latitude and longitude may be relative; radius_km is strictly positive
-        return f'No cheese shops found within {radius_km} of location {latitude}, {longitude}'
+    @app.route(
+        "/venues/lat/<float(signed=True):lat>/lon/<float(signed=True):lon>/radius<float:radius>"
+    )
+    def nearby_venues(lat, lon, radius):
+        # show venues within radius of the location given by coordinates lat, lon
+        #  lat and lon may be negative; radius is strictly positive
+        return f"No venues within {radius} of location {lat}, {lon}"
+
 
     @app.route('/path/<path:subpath>')
     def show_subpath(subpath):
@@ -228,7 +231,7 @@ of the argument like ``<converter:variable_name>``. ::
 
 Converter types:
 
-========== ==============================================================================
+========== ===============================================================================
 ``string`` (default) accepts any text without a slash
 ``int``    accepts integers (positive only unless ``signed=True`` is passed)
 ``float``  accepts floating point values (positive only unless ``signed=True`` is passed)

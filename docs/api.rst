@@ -670,7 +670,7 @@ Variable parts are passed to the view function as keyword arguments.
 
 The following converters are available:
 
-=========== ===================================================================
+=========== ====================================================================
 `string`    accepts any text without a slash (the default)
 `int`       accepts integers, (positive only unless ``signed=True`` is passed)
 `float`     like `int` but for floating point values
@@ -695,9 +695,12 @@ Here are some examples::
     def show_post(post_id):
         pass
 
-    @app.route('/shops_near/latitude/<float(signed=True):latitude>/longitude/<float(signed=True):longitude>/within_km<float:radius_km>')
-    def nearby_shops(latitude, longitude, radius_km):
+    @app.route(
+        '/venues/lat/<float(signed=True):lat>/lon/<float(signed=True):lon>/radius<float:radius>'
+    )
+    def nearby_venues(lat, lon, radius):
         pass
+
 
 An important detail to keep in mind is how Flask deals with trailing
 slashes.  The idea is to keep each URL unique so the following rules
